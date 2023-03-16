@@ -1,0 +1,37 @@
+
+Name: Brian Lester
+
+Stack: Java
+
+GitHub Repo link: https://github.com/Brian-Lester/PA_SOLO_PROJECT
+
+Project name: Fitness Tracker
+
+Project description: The Goal of the fitness tracker is to implement a way for users to track there workouts and meals. planning on implemeting a many to one relationship metween users and workuts, and users and meals. users will be able to view/edit/delete past workouts & meals. add new workouts and meals.
+
+
+MVP (Minimum Viable Product) features: Full Crud between Users workout and meals
+
+
+Bonus feature(s): BootStrap (For Sure):
+
+api use of https://spoonacular.com/food-api : a Food api where users can search a food to get the nutrional data while still maintaining the ability to create there own:(Maybe)
+
+Use of a weather api to suggeset a walk or run if the weather is nice enough(Maybe)
+
+Use of google maps api to show nearby parks where users can excercise(Maybe)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+B
