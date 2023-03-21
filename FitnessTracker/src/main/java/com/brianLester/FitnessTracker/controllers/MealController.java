@@ -1,5 +1,8 @@
 package com.brianLester.FitnessTracker.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.brianLester.FitnessTracker.models.Meal;
 import com.brianLester.FitnessTracker.models.User;
+import com.brianLester.FitnessTracker.models.Ingredient;
 import com.brianLester.FitnessTracker.services.IngredientService;
 import com.brianLester.FitnessTracker.services.MealService;
 import com.brianLester.FitnessTracker.services.WorkoutService;
@@ -48,7 +52,7 @@ public class MealController {
     		return "redirect:/";
     	}
 		if(result.hasErrors()) {
-			
+			model.addAttribute("days", wServ.FindAll());
 			return "newMeal.jsp";
 		}
 		mServ.createOrUpdate(newMeal);
@@ -71,4 +75,37 @@ public class MealController {
 		return"redirect:/view/day/" + m.getWorkout().getId();
 
 	}
+	
+	@GetMapping("/edit/meal/{id}")
+	public String editMeal(HttpSession session, @PathVariable("id") Long id , Model model) {
+		if(session.getAttribute("user")== null) {
+			return "redirect:/";
+		}
+		Meal m = mServ.FindById(id);
+		User u = (User) session.getAttribute("user");
+		if( u.getId()!= m.getUser().getId()) {
+			return "redirect:/";
+		}
+		model.addAttribute("newMeal", m);
+		model.addAttribute("days", wServ.FindAll());
+		return"editMeal.jsp";
+
+	}
+//	@PostMapping("/edit/meal/{id}")
+//	public String editMeal(@Valid @ModelAttribute("newMeal") Meal newMeal,BindingResult result,HttpSession session, @PathVariable("id") Long id , Model model,@RequestParam("ingredient") String ingredient) {
+//		if(session.getAttribute("user")== null) {
+//			return "redirect:/";
+//		}
+//		Meal m = mServ.FindById(id);
+//		if(result.hasErrors()) {
+//			model.addAttribute("days", wServ.FindAll());
+//			return "newMeal.jsp";
+//		}
+//		List <Ingredient> i = newMeal.getIngredients();
+//		i.addAll(iServ.allIngredients(ingredient,newMeal));
+//		newMeal.setIngredients(i);
+//		mServ.createOrUpdate(m);
+//		return"redirect:/edit/meal/" + m.getId();
+//
+//	}
 }

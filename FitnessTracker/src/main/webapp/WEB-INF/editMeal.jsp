@@ -30,7 +30,7 @@
     </div>
   </div>
 </nav>
-<form:form action="/new/meal" method="post" class ="form-group" modelAttribute="newMeal">
+<form:form action="/edit/meal/${newMeal.id}" method="post" class ="form-group" modelAttribute="newMeal">
 		<div class="mb-3">
 		<form:label path = "workout" class= "form-label">Select Date</form:label>
 		<form:errors path="workout" class="text-danger"/><br>
@@ -62,7 +62,12 @@
              <form:textarea  class="form-control" placeholder="A truly Time-less classic" path="description"/>
     	</div>
     	<form:input type = "hidden" path = "user" value="${ user.id}"/>
-    	<button class = "btn  btn-outline-primary">Add Meal</button>
+    	<button class = "btn  btn-outline-primary"> Update Meal</button>
 	</form:form>
+	
+	<h5>Ingredients:</h5>
+        	<ul>
+        	<c:forEach var = "i"  items = "${newMeal.ingredients }"> <li>${i.ingredientName}</li> </c:forEach>
+        	</ul>
 </body>
 </html>

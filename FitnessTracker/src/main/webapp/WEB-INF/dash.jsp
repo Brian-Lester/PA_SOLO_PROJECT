@@ -51,7 +51,7 @@
 	</thead>
 	<tbody>
 			<c:forEach var="workout" items="${workouts}" varStatus="loop">
-				
+				<c:if test="${workout.user.id == user.id}">
 
 		<tr>
 			
@@ -65,6 +65,7 @@
 				<td><c:out value="${total}"></c:out></td>
 				<td><a href= "/view/day/${workout.id}"><button class= "btn btn-outline-primary">Details</button></a></td>
 			</tr>
+			</c:if>
 		</c:forEach>
 	</tbody>
 </table>
