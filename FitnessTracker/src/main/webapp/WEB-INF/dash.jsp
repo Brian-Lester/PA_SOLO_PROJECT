@@ -18,13 +18,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/new/workout">+ Add a Workout</a>
+          <a class="btn btn-outline-primary" aria-current="page" href="/new/workout">+ Add a Workout</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/new/meal">+ Add a Meal</a>
+          <a class="btn btn-outline-primary" aria-current="page" href="/new/meal">+ Add a Meal</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
+          <a class="btn btn-outline-danger" href="/logout">Logout</a>
         </li>
         </ul>
     </div>
@@ -57,13 +57,18 @@
 			
 				<td><fmt:formatDate value="${workout.createdAt}" pattern="yyyy-MM-dd" /></td>
 				<td><c:out value="${workout.totalTime}"></c:out> Minutes</td>
-				<td><c:out value="${workout.excercises[1].excerciseType}"></c:out></td>
-				<td><c:out value="${workout.user.meals[0].calories}"></c:out></td>
+				<td><c:out value="${workout.excercises[0].excerciseType}"></c:out></td>
+				<c:set var="total" value="${0}"/>
+				<c:forEach var="meals" items="${workout.meals}">
+    				<c:set var="total" value="${total + meals.calories}" />
+				</c:forEach>
+				<td><c:out value="${total}"></c:out></td>
+				<td><a href= "/view/day/${workout.id}"><button class= "btn btn-outline-primary">Details</button></a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 
-<a href="/logout" class="btn btn-danger">Logout</a>
+<a href="/logout" class="btn btn-outline-danger">Logout</a>
 </body>
 </html>

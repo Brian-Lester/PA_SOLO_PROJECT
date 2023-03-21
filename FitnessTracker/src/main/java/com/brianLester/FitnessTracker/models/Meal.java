@@ -3,6 +3,7 @@ package com.brianLester.FitnessTracker.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,8 +38,12 @@ public class Meal {
 	    @Min(value=1, message="Must contain atleast 1 calorie")
 	    private int calories;
 	    
-	    @OneToMany(mappedBy="meal", fetch = FetchType.LAZY )
+	    @OneToMany(mappedBy="meal", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	    private List<Ingredient> ingredients;
+	    
+	    @ManyToOne(fetch = FetchType.LAZY)
+	    @JoinColumn(name="workout_id")
+	    private Workout workout;
 	    
 	    
 	    @Size(min=3, message="Description must be atleast 3 Characters")
@@ -54,6 +59,8 @@ public class Meal {
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name="user_id")
 	    private User user;
+
+	    public Meal() {}
 
 		public Long getId() {
 			return id;
@@ -87,21 +94,20 @@ public class Meal {
 			this.ingredients = ingredients;
 		}
 
+		public Workout getWorkout() {
+			return workout;
+		}
+
+		public void setWorkout(Workout workout) {
+			this.workout = workout;
+		}
+
 		public String getDescription() {
 			return description;
 		}
 
 		public void setDescription(String description) {
 			this.description = description;
-		}
-		
-
-		public User getUser() {
-			return user;
-		}
-
-		public void setUser(User user) {
-			this.user = user;
 		}
 
 		public Date getCreatedAt() {
@@ -117,9 +123,15 @@ public class Meal {
 	    @PreUpdate
 	    protected void onUpdate(){
 	        this.updatedAt = new Date();
-	    
-	    
-	    
-	    
 	    }
+
+		public User getUser() {
+			return user;
+		}
+
+		public void setUser(User user) {
+			this.user = user;
+		};
+	    
+	    
 }

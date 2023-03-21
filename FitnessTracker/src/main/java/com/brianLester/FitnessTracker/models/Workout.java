@@ -3,6 +3,7 @@ package com.brianLester.FitnessTracker.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -25,8 +27,11 @@ public class Workout {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 	    
-	 	@OneToMany(mappedBy="workout", fetch = FetchType.LAZY )
+	 	@OneToMany(mappedBy="workout", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
 	    private List<Excercise> excercises;
+	 	
+	 	@OneToMany(mappedBy="workout", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
+	    private List<Meal> meals;
 	    
 	    
 	    
@@ -117,8 +122,16 @@ public class Workout {
 			this.totalTime = totalTime;
 		}
 
-	    
+		public List<Meal> getMeals() {
+			return meals;
+		}
 
+		public void setMeals(List<Meal> meals) {
+			this.meals = meals;
+		}
+
+	    
+		
 		
 	    
 	    

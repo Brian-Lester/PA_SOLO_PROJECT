@@ -9,5 +9,7 @@ import com.brianLester.FitnessTracker.models.Meal;
 public interface MealRepo extends CrudRepository<Meal, Long> {
 	
 	List<Meal> findAll();
+	
+//	List<Meal> findAll(Date date);
 
 }

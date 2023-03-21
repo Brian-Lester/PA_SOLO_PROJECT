@@ -8,16 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.brianLester.FitnessTracker.models.Workout;
-import com.brianLester.FitnessTracker.repos.ExcerciseRepo;
 import com.brianLester.FitnessTracker.repos.WorkoutRepo;
 
 @Service
 public class WorkoutService {
 	@Autowired
 	WorkoutRepo wRepo;
-	
-	@Autowired
-	ExcerciseRepo eRepo;
 	
 	public Workout createOrUpdateUser(Workout w) {
 		return wRepo.save(w);
@@ -36,7 +32,7 @@ public class WorkoutService {
 		List<Workout> workouts = wRepo.findAll();
 		List <Workout> allWorkouts = new ArrayList<Workout>();
 		for(int i=0; i<workouts.size(); i++) {
-			if(workouts.get(i).getUpdatedAt() == null) {
+			if(workouts.get(i).getExcercises().size() < 1 ) {
 				wRepo.deleteById(workouts.get(i).getId());
 			}
 			else {
@@ -44,5 +40,9 @@ public class WorkoutService {
 			}
 		}
 		return allWorkouts;
+	}
+	
+	public void deleteWorkout(Workout w) {
+		wRepo.deleteById(w.getId());;
 	}
 }

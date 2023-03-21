@@ -18,19 +18,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home">+ Home</a>
+          <a class="btn btn-primary" aria-current="page" href="/home">+ Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/new/meal">+ Add a Meal</a>
+          <a class="btn btn-primary" aria-current="page" href="/new/meal">+ Add a Meal</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
+          <a class="btn btn-danger" href="/logout">Logout</a>
         </li>
         </ul>
     </div>
   </div>
 </nav>
-<form:form action="/new/excercise" method="post" class ="form-group" modelAttribute="newExcercise">
+<form:form action="/edit/excercise" method="post" class ="form-group" modelAttribute="newExcercise">
 <form:label path="excerciseType"></form:label>
  <form:errors path="excerciseType" class="text-danger"/><br>
  <form:select path ="excerciseType">
@@ -62,37 +62,42 @@
     	<form:input type = "hidden" path = "workout" value="${ newWorkout.id}"/>
     	<button>Add Excercise</button>
 	</form:form>
-<c:if test="${newWorkout.start == null }">
-<a href = "/start/time/${newWorkout.id}"><button>Start Workout</button></a>
-</c:if>
-<c:if test="${newWorkout.start != null }">
-<a href = "/end/time/${newWorkout.id}"><button>End Workout</button></a>
-</c:if>
-	<h2>You're Doing Great! Heres what youve done so far</h2>
-	<div class="overflow-scroll w-100 p-3" style ="height:150px">
-			<c:forEach var ="excercise" items = "${newWorkout.excercises}">
-				<ul>
-					<li>
-					Exercise:
-					<c:out value= "${excercise.excerciseName}"></c:out>
-					</li>
-					<li>
-					Reps:
-					<c:out value= "${excercise.rep}"></c:out>
-					</li>
-					<li>
-					Weight:
-					<c:out value= "${excercise.weight}"></c:out>
-					</li>
-					<li>
-					Sets:
-					<c:out value= "${excercise.sets}"></c:out>
-					</li>
-					<p>
-					__________________
-					</p>
-				</ul>
-			</c:forEach>
+	<h2>You're Doing Great! Heres what you did!</h2>
+	<div class="overflow-scroll w-100 p-3" style ="height:300px">
+		<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Excercise:</th>
+			<th scope="col">Reps</th>
+			<th scope="col">
+			Weight
+			</th >
+			<th scope="col">
+			Sets
+			</th>
+			<th scope="col">
+			Excercise Type
+			</th>
+			<th>
+			Actions
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+			<c:forEach var="workout" items="${newWorkout.excercises}" varStatus="loop">
+				
+
+		<tr>
+				<td><c:out value="${workout.excerciseName}"></c:out></td>
+				<td><c:out value="${workout.rep}"></c:out></td>
+				<td><c:out value="${workout.weight}"></c:out></td>
+				<td><c:out value="${workout.sets}"></c:out></td>
+				<td><c:out value="${workout.excerciseType}"></c:out></td>
+				<td><a href="/delete/excercise/${workout.id}" class="btn btn-outline-danger">Delete Excercise</a></td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
 	</div>
 </body>
 </html>

@@ -13,10 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,12 +23,9 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotEmpty(message="Recipe name is required!")
-    @Size(min=3, max=30, message="Recipe name must be between 3 and 30 characters")
-    private String RecipeName;
+   
+    private String ingredientName;
     
-    @Min(value=1, message="Must contain atleast 1 calorie")
-    private int calories;
     
      @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -55,21 +48,17 @@ public class Ingredient {
 		this.id = id;
 	}
 
-	public String getRecipeName() {
-		return RecipeName;
+
+
+	public String getIngredientName() {
+		return ingredientName;
 	}
 
-	public void setRecipeName(String recipeName) {
-		RecipeName = recipeName;
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
 	}
 
-	public int getCalories() {
-		return calories;
-	}
 
-	public void setCalories(int calories) {
-		this.calories = calories;
-	}
 
 	public Date getCreatedAt() {
 		return createdAt;
